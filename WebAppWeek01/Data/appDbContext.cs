@@ -15,7 +15,7 @@ namespace WebAppWeek01.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<WebAppWeek01.Models.PeopleModel> PeopleModel { get; set; } = default!;
+        //public DbSet<WebAppWeek01.Models.PeopleModel> PeopleModel { get; set; } = default!;
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
