@@ -17,7 +17,7 @@ namespace WebAppWeek01.Controllers
             IEnumerable<Department> emplist = _dbContext.Departments;
             return View(emplist);
         }
-        public IActionResult Create()
+        public IActionResult CreatePartial()
         {
             return View();
         }

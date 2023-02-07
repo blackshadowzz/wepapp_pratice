@@ -6,8 +6,10 @@
 
 <h3>Department List</h3>
 
+@*asp-action="Create"*@
+
 <p>
-    <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
+    <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Create New</a>
 </p>
 <hr />
 <table class="table">
@@ -46,3 +48,10 @@
 }
     </tbody>
 </table>
+
+@{
+    var department = new Department();
+}
+
+@await Html.PartialAsync("CreatePartial",department);
+

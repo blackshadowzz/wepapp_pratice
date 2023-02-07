@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Text;
 using WebAppWeek01.Models;
+using System.Net.Http.Json;//Use Json
 
 namespace WebAppWeek01.Controllers
 {
@@ -24,6 +25,11 @@ namespace WebAppWeek01.Controllers
                 people = JsonConvert.DeserializeObject<List<PeopleModel>>(data);
             }
             return View(people);
+        } 
+        public IActionResult Index2()
+        {
+          
+            return View();
         }
 
         public IActionResult GetById(int id)

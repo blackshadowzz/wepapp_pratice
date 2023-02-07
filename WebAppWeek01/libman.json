@@ -8,13 +8,11 @@
     },
     {
       "library": "bootstrap@5.2.3",
-      "destination": "wwwroot/bootstrap/",
-      "files": [
-        "js/bootstrap.min.js",
-        "js/bootstrap.bundle.js",
-        "css/bootstrap.min.css",
-        "css/bootstrap.css"
-      ]
+      "destination": "wwwroot/bootstrap/"
+    },
+    {
+      "library": "jquery@3.6.3",
+      "destination": "wwwroot/jquery/"
     }
   ]
 }

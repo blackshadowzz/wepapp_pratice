@@ -1,0 +1,211 @@
+﻿@model WebAppWeek01.Models.PeopleModel
+@{
+    ViewData["Title"] = "Index2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+
+    <script>
+        $(function () {
+            loadData();
+        })
+        function loadData() {
+            $.ajax({
+                url: 'http://blackshadowz-001-site1.dtempurl.com/api/People',
+                type: "GET",
+                dataType: "json",
+                success: function(result){
+                    var html='';
+                    $.each(result,function (key,item){
+                         html += '<tr>';
+                        html += '<td>' + item.id + '</td>';
+                        html += '<td>' + item.name + '</td>';   
+                        html += '<td>' + item.dob + '</td>'; 
+                        html += '<td>' + item.gender + '</td>'; 
+                        html += '<td>' + item.address + '</td>';
+                        html += '<td><a href="#" onclick="return Edit(' + item.id + ')">Edit</a> | <a href="#" onclick="Delete(' + item.id + ')">Delete</a></td>';
+                        html += '</tr>';
+                    });
+                    $('.tbody').html(html);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function Add(){
+            var obj = {
+                Name: $('#Name').val(),
+                dob:$('#dob').val(),
+                gender: $('#gender').val(),
+                Address: $('#Address').val()
+            };
+            $.ajax({
+                type: "POST",
+                url: 'http://blackshadowz-001-site1.dtempurl.com/api/People',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify(obj),
+                success: function (result) {
+                    if (result.indexOf("successfully") > -1) {
+                       
+                        $('#exampleModal').modal('hide');
+                        $('#Name').val("");
+  
+                        $('#dob').val("");
+                        $('#gender').val("");
+                        $('#Address').val("");
+                        loadData();
+                    }
+                    alert(result);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+        function Edit(Id) {
+            $("#myModalLabel").text("Edit Person");
+            $("#Id").parent().show();
+            $('#Name').css('border-color', 'lightgrey');
+            $.ajax({
+                url: 'http://blackshadowz-001-site1.dtempurl.com/api/People/' + Id,
+                typr: "GET",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (result) {
+                    if (result.length > 0) {
+                        $('#id').val(result[0].id);
+                        $('#name').val(result[0].name);
+                        $('#exampleModal').modal('show');
+                        $('#btnUpdate').show();
+                        $('#btnAdd').hide();
+                    }
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+            return false;
+        }
+         function Update() {
+            var obj = {
+                id: parseInt($('#id').val()),
+                name: $('#name').val(),
+            };
+            $.ajax({
+                url: 'http://blackshadowz-001-site1.dtempurl.com/api/People',
+                data: JSON.stringify(obj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                success: function () {
+                    loadData();
+                    $('#myModal').modal('hide');
+                    $('#id').val("");
+                    $('#name').val("");
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        }
+
+    </script>
+}
+
+<div class="container">
+    <h4>People/Ajax</h4>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Add New</button><br />
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th> 
+                <th>
+                    Date_of_Birth
+                </th> 
+                <th>
+                    Gender
+                </th> 
+                <th>
+                    Address
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody class="tbody">
+
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                
+                <h4 class="modal-title" id="myModalLabel">Add/Update</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="dob" class="control-label"></label>
+                        <input asp-for="dob" class="form-control" />
+                        <span asp-validation-for="dob" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="gender" class="control-label"></label>
+                        @* <input asp-for="gender" class="form-control" />*@
+                        <select asp-for="gender" class="form-control">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <span asp-validation-for="gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                    <div class="modal-footer"> 
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                        <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+@*<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>*@
