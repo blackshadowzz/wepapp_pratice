@@ -9,11 +9,13 @@ namespace WebAppWeek01.Controllers
     public class EmployeeController : Controller
     {
         private readonly appDbContext _dbContext;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public EmployeeController(appDbContext dbContext)
+        public EmployeeController(appDbContext dbContext,IWebHostEnvironment webHost)
         {
 
             _dbContext = dbContext;
+            webHostEnvironment = webHost;
 
         }
         public IActionResult Index()
@@ -45,11 +47,31 @@ namespace WebAppWeek01.Controllers
 
             if (ModelState.IsValid)
             {
-                _dbContext.Employees.Add(emp);
+                string fileName = FileUpload(emp);
+                emp.Photo = fileName;
+                _dbContext.Attach(emp);
+                _dbContext.Entry(emp).State=EntityState.Added;
+                //_dbContext.Employees.Add(emp);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
+        }
+        private string FileUpload(Employee employee)
+        {
+            string fileName = null;
+            if (employee.FrontImage != null)
+            {
+                string fileFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                fileName=Guid.NewGuid().ToString()+"_"+ employee.FrontImage.FileName;
+                string filePath=Path.Combine(fileFolder, fileName);
+                using (var fileStream= new FileStream(filePath, FileMode.Create))
+                {
+                    employee.FrontImage.CopyTo(fileStream);
+                }
+            }
+
+            return fileName;
         }
         public IActionResult Edit(int id)
         {

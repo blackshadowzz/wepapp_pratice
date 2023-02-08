@@ -4,15 +4,17 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Employee</h4>
-<hr />
-<div class="container row">
+
+<div class="container">
+    <h4>Employee</h4>
+    <hr />
+    <div class="row">
     <div class="col-md-12">
 
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label asp-for="FirstName" class="control-label">First Name</label>
                         <input asp-for="FirstName" class="form-control" />
@@ -50,7 +52,7 @@
                     </div>
 
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <div class="form-group">
                         <label asp-for="Province" class="control-label"></label>
                         <input asp-for="Province" class="form-control" />
@@ -71,11 +73,7 @@
                         <input asp-for="Email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
-                    @*<div class="form-group">
-                        <label asp-for="Photo" class="control-label"></label>
-                        <input asp-for="Photo" class="form-control" />
-                        <span asp-validation-for="Photo" class="text-danger"></span>
-                    </div>*@
+                   
                     <div class="form-group">
                         <label asp-for="PositionId" class="control-label"></label>
                         <select asp-for="PositionId" class ="form-control" asp-items="ViewBag.PositionId"></select>
@@ -85,6 +83,16 @@
                         <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId"></select>
                     </div>
                
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                       <div>
+                            <img src="" alt="profile" id="profile">
+                       </div>
+                       @* <label asp-for="FrontImage" class="control-label"></label>*@
+                            <input type="file" accept="images/*" asp-for="FrontImage" class="form-control" />
+                        <span asp-validation-for="FrontImage" class="text-danger"></span>
+                    </div>
                 </div>
 
             </div>
@@ -97,7 +105,21 @@
         </form>
 
     </div>
+    </div>
+    <script>
+        let profile = document.querySelector('input[type=file]');
+        profile.addEventListener("change", function (e) {
+            var img = document.querySelector('#profile');
+            img.setAttribute("src", window.URL.createObjectURL(e.target.files[0]));
+            img.setAttribute("style", "display.block;width:100%;height:305px;object-fit:fill;");
+            output.onload = function () {
+                URL.revokeObjectURL(output.src)
+            }
+
+        });
+    </script>
 </div>
+
 
 
 

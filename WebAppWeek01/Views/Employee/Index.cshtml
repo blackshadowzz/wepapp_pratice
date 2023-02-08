@@ -12,7 +12,7 @@
 <hr />
 <table class="table table-sm table-hover shadow ">
     <thead>
-        <tr>
+        <tr class="table-dark">
             <th>ID</th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -93,7 +93,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Photo)
+                <img src="~/images/@item.Photo" height="80px" width="80px" />
             </td>  
             <td>
                 @item.Position.Name

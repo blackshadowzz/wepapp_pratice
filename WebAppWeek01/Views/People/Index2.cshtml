@@ -24,7 +24,7 @@
                         html += '<td>' + item.dob + '</td>'; 
                         html += '<td>' + item.gender + '</td>'; 
                         html += '<td>' + item.address + '</td>';
-                        html += '<td><a href="#" onclick="return Edit(' + item.id + ')">Edit</a> | <a href="#" onclick="Delete(' + item.id + ')">Delete</a></td>';
+                        html += '<td><a href="#" onclick="Edit(' + item.id + ')">Edit</a> | <a href="#" onclick="Delete(' + item.id + ')">Delete</a></td>';
                         html += '</tr>';
                     });
                     $('.tbody').html(html);
@@ -65,6 +65,7 @@
             });
         }
         function Edit(Id) {
+            console.log(Id);
             $("#myModalLabel").text("Edit Person");
             $("#Id").parent().show();
             $('#Name').css('border-color', 'lightgrey');

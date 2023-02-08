@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.Build.Framework;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using WebAppWeek01.Models;
 
@@ -37,6 +38,11 @@ namespace WebAppWeek01.Models
 
         public Position? Position { get; set; } 
         public Department? Department { get; set; }
+       
+        [DisplayName("Front Image")]
+        [NotMapped]
+        public IFormFile? FrontImage { get; set; }
+             
 
     }
 }
