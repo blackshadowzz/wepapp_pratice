@@ -25,7 +25,7 @@ app.UseRouting();
 
 app.MapDefaultControllerRoute();
 
-app.MapControllerRoute("home", pattern: "{controller=Employee}/{action=Index}/{id?}");
+//app.MapControllerRoute("home", pattern: "{controller=Employee}/{action=Index}/{id?}");
 
 
 app.Run();
