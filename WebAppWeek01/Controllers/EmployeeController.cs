@@ -24,6 +24,12 @@ namespace WebAppWeek01.Controllers
 
             return View(emp);
         }
+        public IActionResult Index2()
+        {
+            var emp = _dbContext.Employees;
+            ViewBag.dataSource = emp;
+            return View();
+        }
         public IActionResult GetbyID(int? id)
         {
             return View();

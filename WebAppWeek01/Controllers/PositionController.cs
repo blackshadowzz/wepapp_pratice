@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using WebAppWeek01.Data;
-
 using Position = WebAppWeek01.Models.Position;
 
 namespace WebAppWeek01.Controllers

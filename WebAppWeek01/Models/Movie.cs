@@ -11,6 +11,8 @@ namespace WebAppWeek01.Models
         public string? Languege { get; set; }
         [Column(TypeName = ("varchar(30)"))]
         public string? Type { get; set; }
+        [Column(TypeName = ("decimal(18,2)"))]
+        public decimal? Budget { get; set; }
         [Column(TypeName = ("varchar(500)"))]
         public string? Description { get; set; }
         public DateTime? Released { get; set; }
@@ -22,9 +24,8 @@ namespace WebAppWeek01.Models
         public string? Production { get; set; }
         public int? AgeLimited { get; set; }
 
-        public string? FilePath { get; set; }
-        public string? MovieCover { get; set; }
-
-        public ICollection<Person> People { get; set;}
+        public ICollection<DirectorMovie>? DirectorMovies { get; set; }
+        public ICollection<ActorMovie>? ActorMovies { get; set; }
+        public List<MovieArt> MovieArts { get; set;} =new List<MovieArt>();
     }
 }

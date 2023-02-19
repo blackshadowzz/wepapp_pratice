@@ -13,6 +13,7 @@ namespace WebAppWeek01.Models
         [DisplayName("Last Name"), Column(TypeName = ("nvarchar(40)"))]
         public string LastName { get; set; }
         [DisplayName("DoB")]
+        
         public DateTime? Dob { get; set; }
         [Column(TypeName = ("nvarchar(15)"))]
         public string? Gender { get; set; }
@@ -27,7 +28,9 @@ namespace WebAppWeek01.Models
         public string? Address { get; set; }
         public string? ImagePath { get; set; }
 
-        public ICollection<Movie> Movies { get; set;}
+        
+        public ICollection<ActorMovie>? ActorMovies { get; set;}
+        public ICollection<DirectorMovie>? DirectorMovies { get; set; }
 
 
     }
