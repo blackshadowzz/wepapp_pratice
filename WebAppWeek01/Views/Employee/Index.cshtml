@@ -15,11 +15,9 @@
         <tr class="table-dark">
             <th>ID</th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                Fullname
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
+
             <th>
                 Date of Birth
             </th>
@@ -63,11 +61,9 @@
                 @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.DOB)
             </td>
@@ -96,15 +92,15 @@
                 <img src="~/images/@item.Photo" height="80px" width="80px" />
             </td>  
             <td>
-                @item.Position.Name
+                @item.PositionId
             </td> 
             <td>
-                @Html.DisplayFor(modelItem => item.Department.Name)
+                @Html.DisplayFor(modelItem => item.DepartmentId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID" class="bi bi-pen"></a> |
                 <a asp-action="Details" asp-route-id="@item.ID" class="bi bi-eye"></a> |
-                <a asp-action="Delete" asp-route-id="@item.ID" class="bi bi-trash"></a>
+                <a asp-controller="Employee" asp-action="Delete" asp-route-id="@item.ID" class="bi bi-trash"></a>
             </td>
         </tr>
 }

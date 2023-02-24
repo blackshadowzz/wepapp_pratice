@@ -32,9 +32,9 @@ namespace WebAppWeek01.Models
         [Column("Image_path")]
         public string? Photo { get; set; }
         [DisplayName("Position"), ForeignKey("Position")] 
-        public int PositionId { get; set; }
+        public int? PositionId { get; set; }
         [DisplayName("Department"), ForeignKey("Department")]
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
         public Position? Position { get; set; } 
         public Department? Department { get; set; }
