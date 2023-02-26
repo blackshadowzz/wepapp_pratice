@@ -33,9 +33,10 @@ namespace WebAppWeek01.Controllers
             ViewBag.dataSource = emp;
             return View();
         }
-        public IActionResult GetbyID(int? id)
+        public IActionResult Details(int? id)
         {
-            return View();
+            
+            return View(GetEmpById(id));
         }
         public IActionResult Create() 
         {

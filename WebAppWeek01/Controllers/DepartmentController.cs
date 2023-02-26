@@ -51,7 +51,10 @@ namespace WebAppWeek01.Controllers
             }
             return list;
         }
-
+        public ActionResult Edit()
+        {
+            return View();
+        }
         [HttpPost]
         public IActionResult Create(Department dep)
         {
